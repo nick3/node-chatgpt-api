@@ -68,8 +68,9 @@ export default class BingAIClient {
         const response = await fetch(`${this.options.host}/turing/conversation/create`, fetchOptions);
         const body = await response.text();
         try {
-            console.log('body', body);
-            return JSON.parse(body);
+            if (body && body.length > 0) {
+                return JSON.parse(body);
+            }
         } catch (err) {
             throw new Error(`/turing/conversation/create: failed to parse response body.\n${body}`);
         }
